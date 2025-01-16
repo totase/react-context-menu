@@ -2,15 +2,23 @@
   "name": "react-context-menu",
   "version": "1.0.0",
   "description": "React Context Menu",
-  "source": "src/index.ts",
+  "source": "src/index.html",
   "main": "dist/main.js",
   "scripts": {
+    "start": "parcel",
     "watch": "parcel watch",
     "build": "parcel build"
   },
   "devDependencies": {
     "@parcel/transformer-typescript-types": "^2.13.3",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "parcel": "^2.13.3",
+    "process": "^0.11.10",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
