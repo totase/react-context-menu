@@ -4,15 +4,23 @@
   "description": "React Context Menu",
   "source": "src/index.html",
   "main": "dist/main.js",
+  "type": "module",
   "scripts": {
     "start": "parcel",
     "watch": "parcel watch",
-    "build": "parcel build"
+    "build": "parcel build",
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@parcel/transformer-typescript-types": "^2.13.3",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "@typescript-eslint/parser": "^8.20.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
     "parcel": "^2.13.3",
     "process": "^0.11.10",
     "typescript": "^5.7.3"
