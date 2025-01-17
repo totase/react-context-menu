@@ -1,8 +1,8 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import MenuItem from "components/MenuItem";
 import Separator from "components/Separator";
-import { cloneChildren, getCursorPosition } from "utils";
+import { cloneChildren, getCursorPosition, validateWindowPosition } from "utils";
 import { hideEvents } from "utils/constants";
 
 import styles from "./styles.module.css";
@@ -18,18 +18,21 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
     position: { x: 0, y: 0 },
   })
 
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
   const show = useCallback(
     (event: MouseEvent) => {
-      const mousePos = getCursorPosition(event);
+      let position = getCursorPosition(event);
+      position = validateWindowPosition(position, contextMenuRef.current);
 
-      if (JSON.stringify(state.position) === JSON.stringify(mousePos)) return;
+      if (JSON.stringify(state.position) === JSON.stringify(position)) return;
 
       event.stopPropagation();
       event.preventDefault();
 
       setState({
         active: true,
-        position: mousePos,
+        position,
       });
     },
     [state.position]
@@ -41,6 +44,16 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
       position: { x: 0, y: 0 },
     });
   }, []);
+
+  useEffect(() => {
+    const { position } = state;
+  
+    if (state.active) setState((prev) => ({
+      ...prev,
+      position: validateWindowPosition(position, contextMenuRef.current),
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.active]);
 
   useEffect(() => {
     const trigger = document.getElementById(triggerId);
@@ -68,6 +81,7 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
         opacity: 1,
       }}
       role="menu"
+      ref={contextMenuRef}
     >
       {cloneChildren(children)}
     </div>
