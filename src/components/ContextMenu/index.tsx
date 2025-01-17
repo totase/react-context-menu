@@ -1,10 +1,11 @@
 import { ReactNode, useCallback, useEffect, useState } from "react";
 
-import { cloneChildren, getCursorPosition } from "utils";
-
-import styles from "./styles.module.css";
 import MenuItem from "components/MenuItem";
 import Separator from "components/Separator";
+import { cloneChildren, getCursorPosition } from "utils";
+import { hideEvents } from "utils/constants";
+
+import styles from "./styles.module.css";
 
 interface ContextMenuProps {
   triggerId: string;
@@ -20,22 +21,39 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   useEffect(() => {
     const trigger = document.getElementById(triggerId);
 
-    trigger?.addEventListener("contextmenu", show);
+    if (trigger) trigger.addEventListener("contextmenu", show);
+    if (state.active) {
+      for (const event of hideEvents) window.addEventListener(event, hide);
+    }
 
     return () => {
       trigger?.removeEventListener("contextmenu", show);
+
+      for (const event of hideEvents) window.removeEventListener(event, hide);
     };
-  }, []);
+  }, [triggerId, state.active]);
 
-  const show = useCallback((event: MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const show = useCallback(
+    (event: MouseEvent) => {
+      const mousePos = getCursorPosition(event);
 
-    const mousePos = getCursorPosition(event);
+      if (JSON.stringify(state.position) === JSON.stringify(mousePos)) return;
 
+      event.stopPropagation();
+      event.preventDefault();
+
+      setState({
+        active: true,
+        position: mousePos,
+      });
+    },
+    [state.active, state.position]
+  );
+
+  const hide = useCallback(() => {
     setState({
-      active: true,
-      position: mousePos,
+      active: false,
+      position: { x: 0, y: 0 },
     });
   }, []);
 
