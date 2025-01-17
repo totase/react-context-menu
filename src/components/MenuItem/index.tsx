@@ -11,7 +11,12 @@ export interface MenuItemProps {
 
 const MenuItem = ({ children, className }: MenuItemProps) => {
   return (
-    <div className={`${styles.menuItem} ${className}`} role="menuitem">
+    <div
+      className={`${styles.menuItem} ${className}`}
+      aria-disabled={false}
+      role="menuitem"
+      tabIndex={-1}
+    >
       {children}
     </div>
   );

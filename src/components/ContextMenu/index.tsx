@@ -1,16 +1,17 @@
-import MenuItem from "components/MenuItem";
 import { ReactNode, useCallback, useEffect, useState } from "react";
+
 import { cloneChildren, getCursorPosition } from "utils";
 
 import styles from "./styles.module.css";
+import MenuItem from "components/MenuItem";
+import Separator from "components/Separator";
 
-const ContextMenu = ({
-  triggerId,
-  children,
-}: {
+interface ContextMenuProps {
   triggerId: string;
   children: ReactNode;
-}) => {
+}
+
+const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   const [state, setState] = useState({
     active: false,
     position: { x: 0, y: 0 },
@@ -56,5 +57,6 @@ const ContextMenu = ({
 };
 
 ContextMenu.Item = MenuItem;
+ContextMenu.Separator = Separator;
 
 export default ContextMenu;
