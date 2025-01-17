@@ -5,6 +5,12 @@
   font-size: 0.875rem;
   border-radius: 4px;
 
-  cursor: default;
+  cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+
+  &:hover {
+    color: #fff;
+    background-color: #4095da;
+  }
 }
