@@ -16,22 +16,7 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   const [state, setState] = useState({
     active: false,
     position: { x: 0, y: 0 },
-  });
-
-  useEffect(() => {
-    const trigger = document.getElementById(triggerId);
-
-    if (trigger) trigger.addEventListener("contextmenu", show);
-    if (state.active) {
-      for (const event of hideEvents) window.addEventListener(event, hide);
-    }
-
-    return () => {
-      trigger?.removeEventListener("contextmenu", show);
-
-      for (const event of hideEvents) window.removeEventListener(event, hide);
-    };
-  }, [triggerId, state.active]);
+  })
 
   const show = useCallback(
     (event: MouseEvent) => {
@@ -47,7 +32,7 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
         position: mousePos,
       });
     },
-    [state.active, state.position]
+    [state.position]
   );
 
   const hide = useCallback(() => {
@@ -56,6 +41,21 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
       position: { x: 0, y: 0 },
     });
   }, []);
+
+  useEffect(() => {
+    const trigger = document.getElementById(triggerId);
+
+    if (trigger) trigger.addEventListener("contextmenu", show);
+    if (state.active) {
+      for (const event of hideEvents) window.addEventListener(event, hide);
+    }
+
+    return () => {
+      trigger?.removeEventListener("contextmenu", show);
+
+      for (const event of hideEvents) window.removeEventListener(event, hide);
+    };
+  }, [triggerId, state.active, state.position, show, hide]);
 
   if (!state.active) return null;
 
