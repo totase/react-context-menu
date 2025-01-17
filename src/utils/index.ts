@@ -11,7 +11,6 @@ export const getCursorPosition = (e: MouseEvent) => {
 };
 
 export const validateWindowPosition = (position: Position, element: HTMLDivElement | null) => {
-  console.log(position, element);
   if (!element) return position;
 
   let { x, y } = position;
