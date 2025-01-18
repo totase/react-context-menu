@@ -1,9 +1,10 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
-import MenuItem from "components/MenuItem";
-import Separator from "components/Separator";
-import { cloneChildren, getCursorPosition, validateWindowPosition } from "utils";
-import { hideEvents } from "utils/constants";
+import MenuItem from "../MenuItem";
+import Separator from "../Separator";
+import { cloneChildren, getCursorPosition, validateWindowPosition } from "../../utils";
+import { hideEvents } from "../../utils/constants";
+import { Position } from "../../types";
 
 import styles from "./styles.module.css";
 
@@ -12,8 +13,13 @@ interface ContextMenuProps {
   children: ReactNode;
 }
 
+interface ContextMenuState {
+  active: boolean;
+  position: Position;
+}
+
 const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<ContextMenuState>({
     active: false,
     position: { x: 0, y: 0 },
   })
