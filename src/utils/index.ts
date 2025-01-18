@@ -1,13 +1,13 @@
 import { Children, cloneElement, ReactElement, ReactNode } from "react";
 import { Position } from "types";
 
-export const getCursorPosition = (e: MouseEvent) => {
-  const pos = { x: e.clientX, y: e.clientY };
+export const getCursorPosition = (e: MouseEvent): Position => {
+  const position = { x: e.clientX, y: e.clientY };
 
-  if (!pos.x || pos.x < 0) pos.x = 0;
-  if (!pos.y || pos.y < 0) pos.y = 0;
+  if (!position.x || position.x < 0) position.x = 0;
+  if (!position.y || position.y < 0) position.y = 0;
 
-  return pos;
+  return position;
 };
 
 export const validateWindowPosition = (position: Position, element: HTMLDivElement | null) => {
