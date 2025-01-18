@@ -3,7 +3,8 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import MenuItem from "../MenuItem";
 import Separator from "../Separator";
 import { cloneChildren, getCursorPosition, validateWindowPosition } from "../../utils";
-import { Position } from "../../types";
+import { Position } from "types";
+
 
 import styles from "./styles.module.css";
 
