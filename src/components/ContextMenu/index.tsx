@@ -3,7 +3,6 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import MenuItem from "../MenuItem";
 import Separator from "../Separator";
 import { cloneChildren, getCursorPosition, validateWindowPosition } from "../../utils";
-import { hideEvents } from "../../utils/constants";
 import { Position } from "../../types";
 
 import styles from "./styles.module.css";
@@ -17,6 +16,13 @@ interface ContextMenuState {
   active: boolean;
   position: Position;
 }
+
+const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = [
+  "click",
+  "resize",
+  "scroll",
+  "contextmenu",
+];
 
 const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
@@ -66,13 +72,13 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
 
     if (trigger) trigger.addEventListener("contextmenu", show);
     if (state.active) {
-      for (const event of hideEvents) window.addEventListener(event, hide);
+      for (const event of HIDE_ON_EVENTS) window.addEventListener(event, hide);
     }
 
     return () => {
       trigger?.removeEventListener("contextmenu", show);
 
-      for (const event of hideEvents) window.removeEventListener(event, hide);
+      for (const event of HIDE_ON_EVENTS) window.removeEventListener(event, hide);
     };
   }, [triggerId, state.active, state.position, show, hide]);
 
