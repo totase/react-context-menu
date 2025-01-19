@@ -1,6 +1,6 @@
 {
   "name": "@totase/react-context-menu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": "totase/react-context-menu",
   "description": "Minimal context menu component for React",
   "source": "src/index.ts",
