@@ -1,7 +1,7 @@
-import { ReactNode, useCallback } from "react";
-import cx from "clsx";
+import { ReactNode, useCallback } from 'react';
+import cx from 'clsx';
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css';
 
 export interface MenuItemProps {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
@@ -10,12 +10,7 @@ export interface MenuItemProps {
   children: ReactNode;
 }
 
-const MenuItem = ({
-  children,
-  onClick,
-  disabled,
-  className,
-}: MenuItemProps) => {
+const MenuItem = ({ children, onClick, disabled, className }: MenuItemProps) => {
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       if (disabled) {
@@ -27,7 +22,7 @@ const MenuItem = ({
       if (onClick) onClick(event);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onClick]
+    [onClick],
   );
 
   const classNames = cx(styles.menuItem, className, {
@@ -35,13 +30,7 @@ const MenuItem = ({
   });
 
   return (
-    <div
-      onClick={handleClick}
-      className={classNames}
-      aria-disabled={disabled}
-      role="menuitem"
-      tabIndex={-1}
-    >
+    <div onClick={handleClick} className={classNames} aria-disabled={disabled} role="menuitem" tabIndex={-1}>
       {children}
     </div>
   );
