@@ -5,8 +5,6 @@ import Separator from '../Separator';
 import { cloneChildren, getCursorPosition, validateWindowPosition } from '../../utils';
 import { Position } from 'types';
 
-import styles from './styles.module.css';
-
 interface ContextMenuProps {
   triggerId: string;
   children: ReactNode;
@@ -82,7 +80,7 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
 
   return (
     <div
-      className={styles.contextMenu}
+      className="react-context-menu"
       style={{
         left: state.position.x,
         top: state.position.y,

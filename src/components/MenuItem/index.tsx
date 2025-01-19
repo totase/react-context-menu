@@ -1,8 +1,6 @@
 import { ReactNode, useCallback } from 'react';
 import cx from 'clsx';
 
-import styles from './styles.module.css';
-
 export interface MenuItemProps {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   disabled?: boolean;
@@ -25,8 +23,8 @@ const MenuItem = ({ children, onClick, disabled, className }: MenuItemProps) => 
     [onClick],
   );
 
-  const classNames = cx(styles.menuItem, className, {
-    [styles.disabled]: disabled,
+  const classNames = cx('react-context-menu__item', className, {
+    ['react-context-menu__item--disabled']: disabled,
   });
 
   return (

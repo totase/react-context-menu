@@ -1,5 +1,3 @@
-import styles from './styles.module.css';
-
-const Separator = () => <hr className={styles.separator} />;
+const Separator = () => <hr className="react-context-menu__separator" />;
 
 export default Separator;
