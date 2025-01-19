@@ -1,0 +1,20 @@
+:root {
+  --react-context-menu-z-index: 1000;
+  --react-context-menu-font-size: 0.875rem;
+
+  /* Colors */
+  --react-context-menu-background-color: #f2f2f2;
+  --react-context-menu-border-color: #cccccc;
+
+  --react-context-menu-item-hover-color: #ffffff;
+  --react-context-menu-item-hover-disabled-color: #999999;
+  --react-context-menu-item-hover-background-color: #4095da;
+  --react-context-menu-shadow-color: rgba(0, 0, 0, 0.15);
+
+  /* Spacing */
+  --react-context-menu-padding-sm: 4px;
+  --react-context-menu-padding-md: 8px;
+
+  --react-context-menu-border-radius-inner: 4px;
+  --react-context-menu-border-radius-outer: 6px;
+}
