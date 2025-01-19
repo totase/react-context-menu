@@ -24,6 +24,8 @@ export const validateWindowPosition = (position: Position, element: HTMLDivEleme
   return { x, y };
 };
 
-export const cloneChildren = (children: ReactNode) =>
-  // Remove null items
-  Children.map(Children.toArray(children).filter(Boolean), (item) => cloneElement(item as ReactElement<any>));
+export const cloneChildren = (children: ReactNode) => {
+  const filteredItems = Children.toArray(children).filter(Boolean);
+
+  return filteredItems.map((item) => cloneElement(item as ReactElement<any>));
+};
