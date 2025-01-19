@@ -8,9 +8,9 @@
   user-select: none;
   -webkit-user-select: none;
 
-  &:not(.disabled){
+  &:not(.disabled) {
     cursor: pointer;
-    
+
     &:hover {
       color: #ffffff;
       background-color: #4095da;

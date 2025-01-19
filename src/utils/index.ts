@@ -1,6 +1,5 @@
-import { Children, cloneElement, ReactElement, ReactNode } from "react";
-import { Position } from "types";
-
+import { Children, cloneElement, ReactElement, ReactNode } from 'react';
+import { Position } from 'types';
 
 export const getCursorPosition = (e: MouseEvent): Position => {
   const position = { x: e.clientX, y: e.clientY };
@@ -11,7 +10,7 @@ export const getCursorPosition = (e: MouseEvent): Position => {
   return position;
 };
 
-export const validateWindowPosition = (position:Position, element: HTMLDivElement | null) => {
+export const validateWindowPosition = (position: Position, element: HTMLDivElement | null) => {
   if (!element) return position;
 
   let { x, y } = position;
@@ -27,6 +26,4 @@ export const validateWindowPosition = (position:Position, element: HTMLDivElemen
 
 export const cloneChildren = (children: ReactNode) =>
   // Remove null items
-  Children.map(Children.toArray(children).filter(Boolean), (item) =>
-    cloneElement(item as ReactElement<any>)
-  );
+  Children.map(Children.toArray(children).filter(Boolean), (item) => cloneElement(item as ReactElement<any>));

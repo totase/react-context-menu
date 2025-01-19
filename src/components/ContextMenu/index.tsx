@@ -1,12 +1,11 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
-import MenuItem from "../MenuItem";
-import Separator from "../Separator";
-import { cloneChildren, getCursorPosition, validateWindowPosition } from "../../utils";
-import { Position } from "types";
+import MenuItem from '../MenuItem';
+import Separator from '../Separator';
+import { cloneChildren, getCursorPosition, validateWindowPosition } from '../../utils';
+import { Position } from 'types';
 
-
-import styles from "./styles.module.css";
+import styles from './styles.module.css';
 
 interface ContextMenuProps {
   triggerId: string;
@@ -18,18 +17,13 @@ interface ContextMenuState {
   position: Position;
 }
 
-const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = [
-  "click",
-  "resize",
-  "scroll",
-  "contextmenu",
-];
+const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
 const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
     active: false,
     position: { x: 0, y: 0 },
-  })
+  });
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
@@ -48,7 +42,7 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
         position,
       });
     },
-    [state.position]
+    [state.position],
   );
 
   const hide = useCallback(() => {
@@ -60,24 +54,25 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
 
   useEffect(() => {
     const { position } = state;
-  
-    if (state.active) setState((prev) => ({
-      ...prev,
-      position: validateWindowPosition(position, contextMenuRef.current),
-    }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    if (state.active)
+      setState((prev) => ({
+        ...prev,
+        position: validateWindowPosition(position, contextMenuRef.current),
+      }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.active]);
 
   useEffect(() => {
     const trigger = document.getElementById(triggerId);
 
-    if (trigger) trigger.addEventListener("contextmenu", show);
+    if (trigger) trigger.addEventListener('contextmenu', show);
     if (state.active) {
       for (const event of HIDE_ON_EVENTS) window.addEventListener(event, hide);
     }
 
     return () => {
-      trigger?.removeEventListener("contextmenu", show);
+      trigger?.removeEventListener('contextmenu', show);
 
       for (const event of HIDE_ON_EVENTS) window.removeEventListener(event, hide);
     };
