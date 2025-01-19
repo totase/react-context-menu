@@ -1,8 +1,8 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
-import MenuItem from '../MenuItem';
-import Separator from '../Separator';
-import { cloneChildren, getCursorPosition, validateWindowPosition } from '../../utils';
+import MenuItem from './MenuItem';
+import Separator from './Separator';
+import { cloneChildren, getCursorPosition, validateWindowPosition } from '../utils';
 import { Position } from 'types';
 
 interface ContextMenuProps {
@@ -84,10 +84,10 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
       style={{
         left: state.position.x,
         top: state.position.y,
-        opacity: 1,
       }}
       role="menu"
       ref={contextMenuRef}
+      tabIndex={-1}
     >
       {cloneChildren(children)}
     </div>
