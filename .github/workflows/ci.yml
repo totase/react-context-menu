@@ -13,6 +13,33 @@ jobs:
     with:
       branch: ${{ github.head_ref }}
 
+  prettier:
+    name: Prettier
+    needs: install
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run prettier
+        run: npm run prettier
+
   lint:
     name: Lint codebase
     needs: install
@@ -42,7 +69,7 @@ jobs:
 
   build:
     name: Build
-    needs: [install, lint]
+    needs: [install, prettier, lint]
     runs-on: ubuntu-latest
 
     steps:
