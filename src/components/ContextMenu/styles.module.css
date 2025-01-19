@@ -1,5 +1,5 @@
 .contextMenu {
-  position: absolute;
+  position: fixed;
 
   padding: 4px;
   background: #f2f2f2;
