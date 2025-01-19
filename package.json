@@ -1,5 +1,5 @@
 {
-  "name": "react-context-menu",
+  "name": "@totase/react-context-menu",
   "version": "1.0.0",
   "repository": "totase/react-context-menu",
   "description": "Minimal context menu component for React",
@@ -37,11 +37,16 @@
     "react": ">=16",
     "react-dom": ">=16"
   },
+  "author": {
+    "name": "Tommy Sevaldsen",
+    "url": "https://tommysevaldsen.no"
+  },
   "files": [
     "dist"
   ],
   "keywords": [
     "react",
+    "reactcontextmenu",
     "react-context-menu",
     "context-menu",
     "context menu"
