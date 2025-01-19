@@ -4,11 +4,8 @@
   "source": "index.html",
   "type": "module",
   "scripts": {
-    "start": "parcel",
-    "watch": "parcel watch",
-    "build": "parcel build",
-    "lint": "eslint --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint --fix"
+    "start": "parcel --no-cache",
+    "build": "parcel build index.html"
   },
   "devDependencies": {
     "@parcel/transformer-typescript-types": "^2.13.3",
