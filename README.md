@@ -1,5 +1,7 @@
 # 📝 react-context-menu
 
+Minimal context menu components for React.
+
 ## Installation
 
 ```bash
@@ -8,7 +10,7 @@ npm i --save @totase/react-context-menu
 
 ## Usage
 
-All components are exported from the main component, `ContextMenu`, so that's the only one needed to import.
+Import the `ContextMenu` component and structure your menu with items and separators.
 
 ```tsx
 import { ContextMenu } from '@totase/react-context-menu';
@@ -17,7 +19,7 @@ import { ContextMenu } from '@totase/react-context-menu';
 
 return (
   <>
-    <div id="context-menu-trigger">I will trigger the menu when right clicked<div>
+    <div id="context-menu-trigger">I will trigger the menu when right clicked</div>
 
     <ContextMenu triggerId="context-menu-trigger">
       <ContextMenu.Item onClick={() => console.log("what up")}>Item 1</ContextMenu.Item>
@@ -27,7 +29,27 @@ return (
     </ContextMenu>
   </>
 )
+```
 
+Alternatively
+
+```tsx
+import { ContextMenu, MenuItem, Separator } from '@totase/react-context-menu';
+
+...
+
+return (
+  <>
+    <div id="context-menu-trigger">I will trigger the menu when right clicked</div>
+
+    <ContextMenu triggerId="context-menu-trigger">
+      <MenuItem onClick={() => console.log("what up")}>Item 1</MenuItem>
+      <MenuItem disabled>Disabled item</MenuItem>
+      <Separator />
+      <MenuItem onClick={() => console.log("what up")}>Item 3</MenuItem>
+    </ContextMenu>
+  </>
+)
 ```
 
 ## License
