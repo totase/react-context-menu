@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import cx from 'clsx';
 
 import MenuItem from './MenuItem';
 import Separator from './Separator';
@@ -8,18 +9,21 @@ import { Position } from 'types';
 interface ContextMenuProps {
   triggerId: string;
   children: ReactNode;
+  animateExit?: boolean;
 }
 
 interface ContextMenuState {
   active: boolean;
+  leaving: boolean;
   position: Position;
 }
 
 const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
-const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
+const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
     active: false,
+    leaving: false,
     position: { x: 0, y: 0 },
   });
 
@@ -35,20 +39,41 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
       event.stopPropagation();
       event.preventDefault();
 
-      setState({
+      setState((prev) => ({
+        ...prev,
         active: true,
         position,
-      });
+      }));
     },
     [state.position],
   );
 
   const hide = useCallback(() => {
-    setState({
-      active: false,
-      position: { x: 0, y: 0 },
-    });
+    if (animateExit) {
+      setState((prev) => ({
+        ...prev,
+        leaving: true,
+      }));
+    } else {
+      setState((prev) => ({
+        ...prev,
+        active: false,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleAnimationEnd = useCallback(() => {
+    const { leaving, active } = state;
+
+    if (leaving && active) {
+      setState((prev) => ({
+        ...prev,
+        active: false,
+        leaving: false,
+      }));
+    }
+  }, [state]);
 
   useEffect(() => {
     const { position } = state;
@@ -78,18 +103,23 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
 
   if (!state.active) return null;
 
+  const classNames = cx('react-context-menu', {
+    'react-context-menu--exit': state.leaving,
+  });
+
   return (
     <div
-      className="react-context-menu"
+      className={classNames}
       style={{
         left: state.position.x,
         top: state.position.y,
       }}
       role="menu"
       ref={contextMenuRef}
+      onAnimationEnd={handleAnimationEnd}
       tabIndex={-1}
     >
-      {cloneChildren(children)}
+      {cloneChildren(children, { hide })}
     </div>
   );
 };

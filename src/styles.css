@@ -6,6 +6,7 @@
   --react-context-menu-background-color: #f2f2f2;
   --react-context-menu-border-color: #cccccc;
 
+  --react-context-menu-item-color: #2c2c2c;
   --react-context-menu-item-hover-color: #ffffff;
   --react-context-menu-item-hover-disabled-color: #999999;
   --react-context-menu-item-hover-background-color: #4095da;
@@ -18,6 +19,42 @@
   --react-context-menu-border-radius-inner: 4px;
   --react-context-menu-border-radius-outer: 6px;
 }
+
+/* Animations */
+
+@keyframes react-context-menu-exit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.react-context-menu--exit {
+  animation: react-context-menu-exit 150ms ease-out forwards;
+}
+
+@keyframes react-context-menu__item-clicked {
+  0% {
+    color: var(--react-context-menu-item-hover-color);
+    background-color: var(--react-context-menu-item-hover-background-color);
+  }
+  50% {
+    color: var(--react-context-menu-item-color);
+    background-color: transparent;
+  }
+  100% {
+    color: var(--react-context-menu-item-hover-color);
+    background-color: var(--react-context-menu-item-hover-background-color);
+  }
+}
+
+.react-context-menu__item--clicked {
+  animation: react-context-menu__item-clicked 100ms ease-out forwards;
+}
+
+/* Component styles */
 
 .react-context-menu {
   position: fixed;
@@ -43,6 +80,7 @@
 }
 
 .react-context-menu__item {
+  color: var(--react-context-menu-item-color);
   padding: var(--react-context-menu-padding-sm) var(--react-context-menu-padding-md);
 
   line-height: 1;
