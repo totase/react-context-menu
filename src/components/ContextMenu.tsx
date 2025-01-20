@@ -104,7 +104,7 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
   if (!state.active) return null;
 
   const classNames = cx('react-context-menu', {
-    'react-context-menu__exit': state.leaving,
+    'react-context-menu--exit': state.leaving,
   });
 
   return (

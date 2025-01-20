@@ -28,7 +28,7 @@
   }
 }
 
-.react-context-menu__exit {
+.react-context-menu--exit {
   animation: react-context-menu-exit 150ms ease-out forwards;
 }
 
