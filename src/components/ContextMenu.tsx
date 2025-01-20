@@ -9,6 +9,7 @@ import { Position } from 'types';
 interface ContextMenuProps {
   triggerId: string;
   children: ReactNode;
+  animateExit?: boolean;
 }
 
 interface ContextMenuState {
@@ -19,7 +20,7 @@ interface ContextMenuState {
 
 const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
-const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
+const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
     active: false,
     leaving: false,
@@ -48,10 +49,18 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   );
 
   const hide = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      leaving: true,
-    }));
+    if (animateExit) {
+      setState((prev) => ({
+        ...prev,
+        leaving: true,
+      }));
+    } else {
+      setState((prev) => ({
+        ...prev,
+        active: false,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAnimationEnd = useCallback(() => {
