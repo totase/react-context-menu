@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import cx from 'clsx';
 
 import MenuItem from './MenuItem';
 import Separator from './Separator';
@@ -12,6 +13,7 @@ interface ContextMenuProps {
 
 interface ContextMenuState {
   active: boolean;
+  leaving: boolean;
   position: Position;
 }
 
@@ -20,6 +22,7 @@ const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize'
 const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
     active: false,
+    leaving: false,
     position: { x: 0, y: 0 },
   });
 
@@ -35,20 +38,33 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
       event.stopPropagation();
       event.preventDefault();
 
-      setState({
+      setState((prev) => ({
+        ...prev,
         active: true,
         position,
-      });
+      }));
     },
     [state.position],
   );
 
   const hide = useCallback(() => {
-    setState({
-      active: false,
-      position: { x: 0, y: 0 },
-    });
+    setState((prev) => ({
+      ...prev,
+      leaving: true,
+    }));
   }, []);
+
+  const handleAnimationEnd = useCallback(() => {
+    const { leaving, active } = state;
+
+    if (leaving && active) {
+      setState((prev) => ({
+        ...prev,
+        active: false,
+        leaving: false,
+      }));
+    }
+  }, [state]);
 
   useEffect(() => {
     const { position } = state;
@@ -78,15 +94,20 @@ const ContextMenu = ({ triggerId, children }: ContextMenuProps) => {
 
   if (!state.active) return null;
 
+  const classNames = cx('react-context-menu', {
+    'react-context-menu__exit': state.leaving,
+  });
+
   return (
     <div
-      className="react-context-menu"
+      className={classNames}
       style={{
         left: state.position.x,
         top: state.position.y,
       }}
       role="menu"
       ref={contextMenuRef}
+      onAnimationEnd={handleAnimationEnd}
       tabIndex={-1}
     >
       {cloneChildren(children)}
