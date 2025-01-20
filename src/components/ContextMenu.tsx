@@ -119,7 +119,7 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
       onAnimationEnd={handleAnimationEnd}
       tabIndex={-1}
     >
-      {cloneChildren(children)}
+      {cloneChildren(children, { hide })}
     </div>
   );
 };
