@@ -51,7 +51,8 @@
 }
 
 .react-context-menu__item--clicked {
-  animation: react-context-menu__item-clicked 100ms ease-out forwards;
+  animation: react-context-menu__item-clicked 100ms ease-out;
+  animation-iteration-count: 1;
 }
 
 /* Component styles */
