@@ -3,6 +3,7 @@ import cx from 'clsx';
 
 import MenuItem from './MenuItem';
 import Separator from './Separator';
+import SubMenu from './SubMenu';
 import { cloneChildren, getCursorPosition, validateWindowPosition } from '../utils';
 import { Position } from 'types';
 
@@ -126,5 +127,6 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
 
 ContextMenu.Item = MenuItem;
 ContextMenu.Separator = Separator;
+ContextMenu.SubMenu = SubMenu;
 
 export default ContextMenu;
