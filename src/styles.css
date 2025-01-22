@@ -96,6 +96,10 @@
     &:hover {
       color: var(--react-context-menu-item-hover-color);
       background-color: var(--react-context-menu-item-hover-background-color);
+
+      .react-context-menu__arrow {
+        border-color: var(--react-context-menu-item-hover-color);
+      }
     }
   }
 }
@@ -104,4 +108,22 @@
   cursor: not-allowed;
 
   color: var(--react-context-menu-item-hover-disabled-color);
+}
+
+.react-context-menu__sub-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.react-context-menu__arrow {
+  transform: rotate(-45deg);
+
+  width: 5px;
+  height: 5px;
+  padding: 3px;
+
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  border-color: var(--react-context-menu-item-color);
 }
