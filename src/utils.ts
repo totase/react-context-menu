@@ -12,7 +12,7 @@ export const getCursorPosition = (e: MouseEvent): Position => {
   return position;
 };
 
-export const validateWindowPosition = (position: Position, element: HTMLDivElement | null) => {
+export const validateMenuPosition = (position: Position, element: HTMLDivElement | null) => {
   if (!element) return position;
 
   let { x, y } = position;
@@ -26,7 +26,7 @@ export const validateWindowPosition = (position: Position, element: HTMLDivEleme
   return { x, y };
 };
 
-export const cloneChildren = (children: ReactNode, props: MenuItemExternalProps) => {
+export const cloneChildren = (children: ReactNode, props?: MenuItemExternalProps) => {
   const filteredItems = Children.toArray(children).filter(Boolean);
 
   return filteredItems.map((item) => cloneElement(item as ReactElement<any>, props));
