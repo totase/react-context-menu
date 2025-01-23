@@ -12,6 +12,8 @@ export interface SubMenuProps {
 }
 
 const CLOSE_DELAY = 150;
+const RIGHT_CLASS = 'react-context-menu__submenu-right';
+const BOTTOM_CLASS = 'react-context-menu__submenu-bottom';
 
 const SubMenu = ({ label, children, className, disabled, ...rest }: SubMenuProps) => {
   const [active, setActive] = useState(false);
@@ -38,15 +40,15 @@ const SubMenu = ({ label, children, className, disabled, ...rest }: SubMenuProps
 
       // Reset position styling
       subMenuRef.current.style.top = '0';
-      subMenuRef.current.classList.remove('react-context-menu__submenu-right', 'react-context-menu__submenu-bottom');
+      subMenuRef.current.classList.remove(RIGHT_CLASS, BOTTOM_CLASS);
 
       const { height } = itemRef.current.getBoundingClientRect();
       const { right, bottom } = subMenuRef.current.getBoundingClientRect();
 
-      if (right > window.innerWidth) subMenuRef.current.classList.add('react-context-menu__submenu-right');
+      if (right > window.innerWidth) subMenuRef.current.classList.add(RIGHT_CLASS);
       if (bottom - window.innerHeight > 0) {
         subMenuRef.current.style.top = `${window.innerHeight - bottom - height}px`;
-        subMenuRef.current.classList.add('react-context-menu__submenu-bottom');
+        subMenuRef.current.classList.add(BOTTOM_CLASS);
       }
     }
   }, [subMenuRef, itemRef, clearTimer]);
@@ -70,10 +72,7 @@ const SubMenu = ({ label, children, className, disabled, ...rest }: SubMenuProps
       aria-haspopup="true"
       role="menuitem"
       tabIndex={-1}
-      onMouseEnter={() => {
-        console.log('Mouse enter');
-        calculatePosition();
-      }}
+      onMouseEnter={calculatePosition}
       onMouseLeave={onLeave}
       onClick={(event: React.MouseEvent<HTMLElement>) => event.stopPropagation()}
     >
