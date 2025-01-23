@@ -57,8 +57,8 @@
 
 /* Component styles */
 
-.react-context-menu {
-  position: fixed;
+.react-context-menu,
+.react-context-menu__submenu {
   z-index: var(--react-context-menu-z-index);
 
   padding: var(--react-context-menu-padding-sm);
@@ -69,6 +69,30 @@
   border-radius: var(--react-context-menu-border-radius-outer);
 
   min-width: 160px;
+}
+
+.react-context-menu {
+  position: fixed;
+}
+
+.react-context-menu__submenu {
+  position: absolute;
+
+  /* Initial position */
+  left: 100%;
+
+  &:not(.react-context-menu__submenu-bottom) {
+    top: calc(-1 * var(--react-context-menu-padding-sm));
+  }
+}
+
+.react-context-menu__submenu-bottom {
+  top: unset;
+}
+
+.react-context-menu__submenu-right {
+  right: 100%;
+  left: unset;
 }
 
 .react-context-menu__separator {
@@ -91,6 +115,10 @@
   user-select: none;
   -webkit-user-select: none;
 
+  &:has(.react-context-menu__submenu) {
+    position: relative;
+  }
+
   &:not(.react-context-menu__item--disabled) {
     cursor: pointer;
 
@@ -111,7 +139,7 @@
   color: var(--react-context-menu-item-hover-disabled-color);
 }
 
-.react-context-menu__sub-menu {
+.react-context-menu__label {
   display: flex;
   align-items: center;
   justify-content: space-between;
