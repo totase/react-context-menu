@@ -10,7 +10,7 @@ npm i --save @totase/react-context-menu
 
 ## Usage
 
-Import the `ContextMenu` component and structure your menu with items and separators.
+Import the `ContextMenu` component and structure your menu with items, sub menus and separators.
 
 ```tsx
 import { ContextMenu } from '@totase/react-context-menu';
@@ -22,10 +22,14 @@ return (
     <div id="context-menu-trigger">I will trigger the menu when right clicked</div>
 
     <ContextMenu triggerId="context-menu-trigger">
-      <ContextMenu.Item onClick={() => console.log("what up")}>Item 1</ContextMenu.Item>
       <ContextMenu.Item disabled>Disabled item</ContextMenu.Item>
+      <ContextMenu.Item onClick={() => console.log("what up")}>Item 1</ContextMenu.Item>
+      <ContextMenu.Item onClick={() => console.log("what up")}>Item 2</ContextMenu.Item>
       <ContextMenu.Separator />
-      <ContextMenu.Item onClick={() => console.log("what up")}>Item 3</ContextMenu.Item>
+      <ContextMenu.SubMenu label="Sub menu">
+        <ContextMenu.Item onClick={() => console.log("what up")}>Sub item 1</ContextMenu.Item>
+        <ContextMenu.Item onClick={() => console.log("what up")}>Sub item 2</ContextMenu.Item>
+      </ContextMenu.SubMenu>
     </ContextMenu>
   </>
 )
@@ -43,10 +47,10 @@ return (
     <div id="context-menu-trigger">I will trigger the menu when right clicked</div>
 
     <ContextMenu triggerId="context-menu-trigger">
-      <MenuItem onClick={() => console.log("what up")}>Item 1</MenuItem>
       <MenuItem disabled>Disabled item</MenuItem>
       <Separator />
       <MenuItem onClick={() => console.log("what up")}>Item 3</MenuItem>
+      <MenuItem onClick={() => console.log("what up")}>Item 1</MenuItem>
     </ContextMenu>
   </>
 )
