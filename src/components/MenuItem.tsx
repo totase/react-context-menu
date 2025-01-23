@@ -37,6 +37,7 @@ const MenuItem = ({ children, onClick, disabled, className, ...rest }: MenuItemP
 
   const handleAnimationEnd = useCallback(() => {
     const { hide } = rest as MenuItemExternalProps;
+    setState((prev) => ({ ...prev, clicked: false }));
 
     if (state.clicked && state.eventRef) {
       hide();

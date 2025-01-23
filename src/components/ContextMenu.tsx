@@ -3,7 +3,8 @@ import cx from 'clsx';
 
 import MenuItem from './MenuItem';
 import Separator from './Separator';
-import { cloneChildren, getCursorPosition, validateWindowPosition } from '../utils';
+import SubMenu from './SubMenu';
+import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
 import { Position } from 'types';
 
 interface ContextMenuProps {
@@ -32,7 +33,7 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
   const show = useCallback(
     (event: MouseEvent) => {
       let position = getCursorPosition(event);
-      position = validateWindowPosition(position, contextMenuRef.current);
+      position = validateMenuPosition(position, contextMenuRef.current);
 
       if (JSON.stringify(state.position) === JSON.stringify(position)) return;
 
@@ -81,7 +82,7 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
     if (state.active)
       setState((prev) => ({
         ...prev,
-        position: validateWindowPosition(position, contextMenuRef.current),
+        position: validateMenuPosition(position, contextMenuRef.current),
       }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.active]);
@@ -126,5 +127,6 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
 
 ContextMenu.Item = MenuItem;
 ContextMenu.Separator = Separator;
+ContextMenu.SubMenu = SubMenu;
 
 export default ContextMenu;

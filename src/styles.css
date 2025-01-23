@@ -51,13 +51,14 @@
 }
 
 .react-context-menu__item--clicked {
-  animation: react-context-menu__item-clicked 100ms ease-out forwards;
+  animation: react-context-menu__item-clicked 100ms ease-out;
+  animation-iteration-count: 1;
 }
 
 /* Component styles */
 
-.react-context-menu {
-  position: fixed;
+.react-context-menu,
+.react-context-menu__submenu {
   z-index: var(--react-context-menu-z-index);
 
   padding: var(--react-context-menu-padding-sm);
@@ -68,6 +69,30 @@
   border-radius: var(--react-context-menu-border-radius-outer);
 
   min-width: 160px;
+}
+
+.react-context-menu {
+  position: fixed;
+}
+
+.react-context-menu__submenu {
+  position: absolute;
+
+  /* Initial position */
+  left: 100%;
+
+  &:not(.react-context-menu__submenu-bottom) {
+    top: calc(-1 * var(--react-context-menu-padding-sm));
+  }
+}
+
+.react-context-menu__submenu-bottom {
+  top: unset;
+}
+
+.react-context-menu__submenu-right {
+  right: 100%;
+  left: unset;
 }
 
 .react-context-menu__separator {
@@ -90,12 +115,20 @@
   user-select: none;
   -webkit-user-select: none;
 
+  &:has(.react-context-menu__submenu) {
+    position: relative;
+  }
+
   &:not(.react-context-menu__item--disabled) {
     cursor: pointer;
 
     &:hover {
       color: var(--react-context-menu-item-hover-color);
       background-color: var(--react-context-menu-item-hover-background-color);
+
+      .react-context-menu__arrow {
+        border-color: var(--react-context-menu-item-hover-color);
+      }
     }
   }
 }
@@ -104,4 +137,22 @@
   cursor: not-allowed;
 
   color: var(--react-context-menu-item-hover-disabled-color);
+}
+
+.react-context-menu__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.react-context-menu__arrow {
+  transform: rotate(-45deg);
+
+  width: 5px;
+  height: 5px;
+  padding: 3px;
+
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  border-color: var(--react-context-menu-item-color);
 }
