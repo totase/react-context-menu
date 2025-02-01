@@ -13,7 +13,7 @@
     "build": "parcel build",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix",
-    "prettier": "prettier --write src/ && prettier --write app/",
+    "prettier": "prettier --write src/",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
