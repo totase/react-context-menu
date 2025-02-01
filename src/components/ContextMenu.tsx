@@ -7,7 +7,7 @@ import SubMenu from './SubMenu';
 import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
 import { Position } from 'types';
 
-interface ContextMenuProps {
+export interface ContextMenuProps {
   triggerId: string;
   children: ReactNode;
   animateExit?: boolean;
