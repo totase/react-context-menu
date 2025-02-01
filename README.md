@@ -25,11 +25,6 @@ return (
       <ContextMenu.Item disabled>Disabled item</ContextMenu.Item>
       <ContextMenu.Item onClick={() => console.log("what up")}>Item 1</ContextMenu.Item>
       <ContextMenu.Item onClick={() => console.log("what up")}>Item 2</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.SubMenu label="Sub menu">
-        <ContextMenu.Item onClick={() => console.log("what up")}>Sub item 1</ContextMenu.Item>
-        <ContextMenu.Item onClick={() => console.log("what up")}>Sub item 2</ContextMenu.Item>
-      </ContextMenu.SubMenu>
     </ContextMenu>
   </>
 )
@@ -48,14 +43,17 @@ return (
 
     <ContextMenu triggerId="context-menu-trigger">
       <MenuItem disabled>Disabled item</MenuItem>
-      <Separator />
-      <MenuItem onClick={() => console.log("what up")}>Item 3</MenuItem>
       <MenuItem onClick={() => console.log("what up")}>Item 1</MenuItem>
+      <MenuItem onClick={() => console.log("what up")}>Item 2</MenuItem>
     </ContextMenu>
   </>
 )
 ```
 
+### Demo
+
+Demo available from [GitHub pages](https://totase.github.io/react-context-menu/) 🔗
+
 ## License
 
-react-context-menu is licensed under MIT.
+`react-context-menu` is licensed under MIT.
