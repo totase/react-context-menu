@@ -8,8 +8,16 @@ import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils
 import { Position } from 'types';
 
 export interface ContextMenuProps {
+  /**
+   * The id of the element that will trigger the context menu
+   */
   triggerId: string;
   children: ReactNode;
+  /**
+   * Whether to animate the exit of the context menu.
+   *
+   * Default: `true`
+   */
   animateExit?: boolean;
 }
 

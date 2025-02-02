@@ -2,7 +2,15 @@ import { ReactNode, useState, useCallback } from 'react';
 import cx from 'clsx';
 
 export interface MenuItemProps {
+  /**
+   * Function to call when the item is clicked. Includes the click event.
+   */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  /**
+   * Whether the item is disabled.
+   *
+   * Default: `false`
+   */
   disabled?: boolean;
   className?: string;
   children: ReactNode;
@@ -17,7 +25,7 @@ interface MenuItemState {
   eventRef: React.MouseEvent<HTMLElement> | null;
 }
 
-const MenuItem = ({ children, onClick, disabled, className, ...rest }: MenuItemProps) => {
+const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: MenuItemProps) => {
   const [state, setState] = useState<MenuItemState>({ clicked: false, eventRef: null });
 
   const handleClick = useCallback(
