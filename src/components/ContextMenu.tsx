@@ -133,6 +133,7 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
       role="menu"
       ref={contextMenuRef}
       onAnimationEnd={handleAnimationEnd}
+      onClick={(event) => event.stopPropagation()}
       tabIndex={-1}
     >
       {cloneChildren(children, { hide })}
