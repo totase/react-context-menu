@@ -8,9 +8,23 @@ import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils
 import { Position } from 'types';
 
 export interface ContextMenuProps {
+  /**
+   * The id of the element that will trigger the context menu
+   */
   triggerId: string;
   children: ReactNode;
+  /**
+   * Whether to animate the exit of the context menu.
+   *
+   * Default: `true`
+   */
   animateExit?: boolean;
+  /**
+   * The event that will trigger the context menu.
+   *
+   * Default: `contextmenu`
+   */
+  triggerEvent?: 'contextmenu' | 'click';
 }
 
 interface ContextMenuState {
@@ -21,7 +35,7 @@ interface ContextMenuState {
 
 const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
-const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuProps) => {
+const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animateExit = true }: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({
     active: false,
     leaving: false,
@@ -90,16 +104,17 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
   useEffect(() => {
     const trigger = document.getElementById(triggerId);
 
-    if (trigger) trigger.addEventListener('contextmenu', show);
+    if (trigger) trigger.addEventListener(triggerEvent, show);
     if (state.active) {
       for (const event of HIDE_ON_EVENTS) window.addEventListener(event, hide);
     }
 
     return () => {
-      trigger?.removeEventListener('contextmenu', show);
+      trigger?.removeEventListener(triggerEvent, show);
 
       for (const event of HIDE_ON_EVENTS) window.removeEventListener(event, hide);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerId, state.active, state.position, show, hide]);
 
   if (!state.active) return null;
@@ -118,6 +133,7 @@ const ContextMenu = ({ triggerId, children, animateExit = true }: ContextMenuPro
       role="menu"
       ref={contextMenuRef}
       onAnimationEnd={handleAnimationEnd}
+      onClick={(event) => event.stopPropagation()}
       tabIndex={-1}
     >
       {cloneChildren(children, { hide })}

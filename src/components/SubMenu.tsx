@@ -1,21 +1,21 @@
-import { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import cx from 'clsx';
 
 import { cloneChildren } from '../utils';
-import { MenuItemExternalProps } from './MenuItem';
+import { MenuItemExternalProps, MenuItemProps } from './MenuItem';
 
-export interface SubMenuProps {
+export interface SubMenuProps extends Exclude<MenuItemProps, 'onClick'> {
+  /**
+   * Label to display for the submenu.
+   */
   label: string;
-  children: ReactNode;
-  className?: string;
-  disabled?: boolean;
 }
 
 const CLOSE_DELAY = 150;
 const RIGHT_CLASS = 'react-context-menu__submenu-right';
 const BOTTOM_CLASS = 'react-context-menu__submenu-bottom';
 
-const SubMenu = ({ label, children, className, disabled, ...rest }: SubMenuProps) => {
+const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubMenuProps) => {
   const [active, setActive] = useState(false);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
