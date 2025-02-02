@@ -9,13 +9,6 @@ const TRIGGER_ID = 'storybook-trigger';
 const meta = {
   title: 'Context Menu',
   component: ContextMenu,
-  decorators: [
-    (Story) => (
-      <StoryWrapper triggerId={TRIGGER_ID}>
-        <Story />
-      </StoryWrapper>
-    ),
-  ],
   parameters: {
     layout: 'centered',
   },
@@ -34,6 +27,43 @@ export const Default: Story = {
       <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
     ],
   },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
+};
+
+export const WithoutExitAnimation: Story = {
+  args: {
+    animateExit: false,
+    children: [
+      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+    ],
+  },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
+};
+
+export const ClickTrigger: Story = {
+  args: {
+    triggerEvent: 'click',
+    children: [
+      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+    ],
+  },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID} triggerText="Left-click to trigger menu">
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
 };
 
 export const DisabledItem: Story = {
@@ -46,6 +76,11 @@ export const DisabledItem: Story = {
       <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
     ],
   },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
 };
 
 export const Separator: Story = {
@@ -57,6 +92,11 @@ export const Separator: Story = {
       <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
     ],
   },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
 };
 
 export const SubMenu: Story = {
@@ -71,4 +111,9 @@ export const SubMenu: Story = {
       </ContextMenu.SubMenu>,
     ],
   },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
 };
