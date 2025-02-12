@@ -33,10 +33,7 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
       event.stopPropagation();
 
       if (!disabled && onClick) {
-        setState({
-          clicked: true,
-          eventRef: event,
-        });
+        setState({ clicked: true, eventRef: event });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

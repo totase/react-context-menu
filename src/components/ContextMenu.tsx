@@ -36,11 +36,7 @@ interface ContextMenuState {
 const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
 const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animateExit = true }: ContextMenuProps) => {
-  const [state, setState] = useState<ContextMenuState>({
-    active: false,
-    leaving: false,
-    position: { x: 0, y: 0 },
-  });
+  const [state, setState] = useState<ContextMenuState>({ active: false, leaving: false, position: { x: 0, y: 0 } });
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
@@ -54,26 +50,16 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
       event.stopPropagation();
       event.preventDefault();
 
-      setState((prev) => ({
-        ...prev,
-        active: true,
-        position,
-      }));
+      setState((prev) => ({ ...prev, active: true, position }));
     },
     [state.position],
   );
 
   const hide = useCallback(() => {
     if (animateExit) {
-      setState((prev) => ({
-        ...prev,
-        leaving: true,
-      }));
+      setState((prev) => ({ ...prev, leaving: true }));
     } else {
-      setState((prev) => ({
-        ...prev,
-        active: false,
-      }));
+      setState((prev) => ({ ...prev, active: false }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -82,11 +68,7 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
     const { leaving, active } = state;
 
     if (leaving && active) {
-      setState((prev) => ({
-        ...prev,
-        active: false,
-        leaving: false,
-      }));
+      setState((prev) => ({ ...prev, active: false, leaving: false }));
     }
   }, [state]);
 
@@ -94,10 +76,7 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
     const { position } = state;
 
     if (state.active)
-      setState((prev) => ({
-        ...prev,
-        position: validateMenuPosition(position, contextMenuRef.current),
-      }));
+      setState((prev) => ({ ...prev, position: validateMenuPosition(position, contextMenuRef.current) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.active]);
 
@@ -119,17 +98,12 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
 
   if (!state.active) return null;
 
-  const classNames = cx('react-context-menu', {
-    'react-context-menu--exit': state.leaving,
-  });
+  const classNames = cx('react-context-menu', { 'react-context-menu--exit': state.leaving });
 
   return (
     <div
       className={classNames}
-      style={{
-        left: state.position.x,
-        top: state.position.y,
-      }}
+      style={{ left: state.position.x, top: state.position.y }}
       role="menu"
       ref={contextMenuRef}
       onAnimationEnd={handleAnimationEnd}

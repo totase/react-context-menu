@@ -61,9 +61,7 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
     }, CLOSE_DELAY);
   }, [clearTimer]);
 
-  const classNames = cx('react-context-menu__item', className, {
-    'react-context-menu__item--disabled': disabled,
-  });
+  const classNames = cx('react-context-menu__item', className, { 'react-context-menu__item--disabled': disabled });
 
   return (
     <div
@@ -82,9 +80,7 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
       </div>
       <div
         ref={subMenuRef}
-        style={{
-          visibility: active ? 'visible' : 'hidden',
-        }}
+        style={{ visibility: active ? 'visible' : 'hidden' }}
         className="react-context-menu__submenu"
       >
         {/* rest is sent from the ContextMenu element */}
