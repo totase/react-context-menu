@@ -1,11 +1,9 @@
-import { useState, useCallback, ButtonHTMLAttributes } from 'react';
+import { useState, useCallback, ButtonHTMLAttributes, useContext } from 'react';
 import cx from 'clsx';
 
-export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+import { ContextMenuContext } from '../context';
 
-export interface MenuItemExternalProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  hide: () => void;
-}
+export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 interface MenuItemState {
   clicked: boolean;
@@ -13,6 +11,7 @@ interface MenuItemState {
 }
 
 const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: MenuItemProps) => {
+  const context = useContext(ContextMenuContext);
   const [state, setState] = useState<MenuItemState>({ clicked: false, eventRef: null });
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,11 +21,10 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
   };
 
   const handleAnimationEnd = useCallback(() => {
-    const { hide } = rest as MenuItemExternalProps;
     setState((prev) => ({ ...prev, clicked: false }));
 
     if (state.clicked && state.eventRef) {
-      hide();
+      context?.hide();
       onClick!(state.eventRef);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

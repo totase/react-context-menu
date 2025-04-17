@@ -1,6 +1,5 @@
 import { Children, cloneElement, ReactElement, ReactNode } from 'react';
 
-import { MenuItemExternalProps } from './components/MenuItem';
 import { Position } from './types';
 
 export const getCursorPosition = (e: MouseEvent): Position => {
@@ -26,8 +25,8 @@ export const validateMenuPosition = (position: Position, element: HTMLDivElement
   return { x, y };
 };
 
-export const cloneChildren = (children: ReactNode, props?: MenuItemExternalProps) => {
+export const cloneChildren = (children: ReactNode) => {
   const filteredItems = Children.toArray(children).filter(Boolean);
 
-  return filteredItems.map((item) => cloneElement(item as ReactElement<any>, props));
+  return filteredItems.map((item) => cloneElement(item as ReactElement<any>));
 };

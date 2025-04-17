@@ -4,8 +4,10 @@ import cx from 'clsx';
 import MenuItem from './MenuItem';
 import Separator from './Separator';
 import SubMenu from './SubMenu';
+
 import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
 import { HIDE_ON_EVENTS } from '../constants';
+import ContextProvider from '../context';
 import { Position } from '../types';
 
 export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
@@ -58,16 +60,14 @@ const ContextMenu = ({
   };
 
   const hide = () => {
-    const position = { x: 0, y: 0 };
-
-    if (animateExit) setState((prev) => ({ ...prev, position, leaving: true }));
-    else setState((prev) => ({ ...prev, position, active: false }));
+    if (animateExit) setState((prev) => ({ ...prev, leaving: true }));
+    else setState((prev) => ({ ...prev, active: false }));
   };
 
   const handleAnimationEnd = () => {
     const { leaving, active } = state;
 
-    if (leaving && active) setState((prev) => ({ ...prev, active: false, leaving: false }));
+    if (leaving && active) setState(() => ({ position: { x: 0, y: 0 }, active: false, leaving: false }));
   };
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const ContextMenu = ({
       onClick={(event) => event.stopPropagation()}
       tabIndex={-1}
     >
-      {cloneChildren(children, { hide })}
+      <ContextProvider hide={hide}>{cloneChildren(children)}</ContextProvider>
     </div>
   );
 };

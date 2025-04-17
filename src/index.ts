@@ -10,4 +10,5 @@ export {
   SubMenu,
   type SubMenuProps,
 } from './components';
+export { default as ContextProvider, ContextMenuContext } from './context';
 export type { Position } from './types';

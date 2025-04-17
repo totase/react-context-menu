@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, HTMLAttributes } from 'react';
 import cx from 'clsx';
 
-import { MenuItemExternalProps } from './MenuItem';
 import { BOTTOM_CLASS, CLOSE_DELAY, RIGHT_CLASS } from '../constants';
 import { cloneChildren } from '../utils';
 
@@ -85,7 +84,7 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
         className="react-context-menu__submenu"
       >
         {/* rest is sent from the ContextMenu element */}
-        {cloneChildren(children, rest as MenuItemExternalProps)}
+        {cloneChildren(children)}
       </div>
     </div>
   );
