@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import cx from 'clsx';
 
 import MenuItem from './MenuItem';
@@ -40,37 +40,28 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
-  const show = useCallback(
-    (event: MouseEvent) => {
-      let position = getCursorPosition(event);
-      position = validateMenuPosition(position, contextMenuRef.current);
+  const show = (event: MouseEvent) => {
+    let position = getCursorPosition(event);
+    position = validateMenuPosition(position, contextMenuRef.current);
 
-      if (JSON.stringify(state.position) === JSON.stringify(position)) return;
+    if (JSON.stringify(state.position) === JSON.stringify(position)) return;
 
-      event.stopPropagation();
-      event.preventDefault();
+    event.stopPropagation();
+    event.preventDefault();
 
-      setState((prev) => ({ ...prev, active: true, position }));
-    },
-    [state.position],
-  );
+    setState((prev) => ({ ...prev, active: true, position }));
+  };
 
-  const hide = useCallback(() => {
-    if (animateExit) {
-      setState((prev) => ({ ...prev, leaving: true }));
-    } else {
-      setState((prev) => ({ ...prev, active: false }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const hide = () => {
+    if (animateExit) setState((prev) => ({ ...prev, leaving: true }));
+    else setState((prev) => ({ ...prev, active: false }));
+  };
 
-  const handleAnimationEnd = useCallback(() => {
+  const handleAnimationEnd = () => {
     const { leaving, active } = state;
 
-    if (leaving && active) {
-      setState((prev) => ({ ...prev, active: false, leaving: false }));
-    }
-  }, [state]);
+    if (leaving && active) setState((prev) => ({ ...prev, active: false, leaving: false }));
+  };
 
   useEffect(() => {
     const { position } = state;
