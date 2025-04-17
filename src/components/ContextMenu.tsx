@@ -5,6 +5,7 @@ import MenuItem from './MenuItem';
 import Separator from './Separator';
 import SubMenu from './SubMenu';
 import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
+import { HIDE_ON_EVENTS } from '../constants';
 import { Position } from '../types';
 
 export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
@@ -31,8 +32,6 @@ interface ContextMenuState {
   leaving: boolean;
   position: Position;
 }
-
-const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
 const ContextMenu = ({
   triggerId,

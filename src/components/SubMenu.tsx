@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, HTMLAttributes } from 'react';
 import cx from 'clsx';
 
-import { cloneChildren } from '../utils';
 import { MenuItemExternalProps } from './MenuItem';
+import { BOTTOM_CLASS, CLOSE_DELAY, RIGHT_CLASS } from '../constants';
+import { cloneChildren } from '../utils';
 
 export interface SubMenuProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -11,10 +12,6 @@ export interface SubMenuProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   disabled?: boolean;
 }
-
-const CLOSE_DELAY = 150;
-const RIGHT_CLASS = 'react-context-menu__submenu-right';
-const BOTTOM_CLASS = 'react-context-menu__submenu-bottom';
 
 const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubMenuProps) => {
   const [active, setActive] = useState(false);
