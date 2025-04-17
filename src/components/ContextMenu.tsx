@@ -58,8 +58,10 @@ const ContextMenu = ({
   };
 
   const hide = () => {
-    if (animateExit) setState((prev) => ({ ...prev, leaving: true }));
-    else setState((prev) => ({ ...prev, active: false }));
+    const position = { x: 0, y: 0 };
+
+    if (animateExit) setState((prev) => ({ ...prev, position, leaving: true }));
+    else setState((prev) => ({ ...prev, position, active: false }));
   };
 
   const handleAnimationEnd = () => {
