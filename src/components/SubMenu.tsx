@@ -1,14 +1,15 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useRef, HTMLAttributes } from 'react';
 import cx from 'clsx';
 
 import { cloneChildren } from '../utils';
-import { MenuItemExternalProps, MenuItemProps } from './MenuItem';
+import { MenuItemExternalProps } from './MenuItem';
 
-export interface SubMenuProps extends Exclude<MenuItemProps, 'onClick'> {
+export interface SubMenuProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Label to display for the submenu.
    */
   label: string;
+  disabled?: boolean;
 }
 
 const CLOSE_DELAY = 150;
@@ -29,11 +30,11 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
     };
   }, []);
 
-  const clearTimer = useCallback(() => {
+  const clearTimer = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  }, []);
+  };
 
-  const calculatePosition = useCallback(() => {
+  const calculatePosition = () => {
     if (subMenuRef.current && itemRef.current) {
       clearTimer();
       setActive(true);
@@ -51,20 +52,21 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
         subMenuRef.current.classList.add(BOTTOM_CLASS);
       }
     }
-  }, [subMenuRef, itemRef, clearTimer]);
+  };
 
-  const onLeave = useCallback(() => {
+  const onLeave = () => {
     clearTimer();
 
     timeoutRef.current = setTimeout(() => {
       setActive(false);
     }, CLOSE_DELAY);
-  }, [clearTimer]);
+  };
 
   const classNames = cx('react-context-menu__item', className, { 'react-context-menu__item--disabled': disabled });
 
   return (
     <div
+      {...rest}
       ref={itemRef}
       className={classNames}
       aria-haspopup="true"
