@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 import cx from 'clsx';
 
 import MenuItem from './MenuItem';
@@ -7,12 +7,11 @@ import SubMenu from './SubMenu';
 import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
 import { Position } from 'types';
 
-export interface ContextMenuProps {
+export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The id of the element that will trigger the context menu
    */
   triggerId: string;
-  children: ReactNode;
   /**
    * Whether to animate the exit of the context menu.
    *
@@ -35,7 +34,13 @@ interface ContextMenuState {
 
 const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize', 'scroll', 'contextmenu'];
 
-const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animateExit = true }: ContextMenuProps) => {
+const ContextMenu = ({
+  triggerId,
+  children,
+  triggerEvent = 'contextmenu',
+  animateExit = true,
+  ...rest
+}: ContextMenuProps) => {
   const [state, setState] = useState<ContextMenuState>({ active: false, leaving: false, position: { x: 0, y: 0 } });
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -93,6 +98,7 @@ const ContextMenu = ({ triggerId, children, triggerEvent = 'contextmenu', animat
 
   return (
     <div
+      {...rest}
       className={classNames}
       style={{ left: state.position.x, top: state.position.y }}
       role="menu"
