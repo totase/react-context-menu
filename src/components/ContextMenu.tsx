@@ -1,11 +1,11 @@
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import cx from 'clsx';
 
 import MenuItem from './MenuItem';
 import Separator from './Separator';
 import SubMenu from './SubMenu';
 import { cloneChildren, getCursorPosition, validateMenuPosition } from '../utils';
-import { Position } from 'types';
+import { Position } from '../types';
 
 export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
   /**
