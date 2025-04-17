@@ -112,6 +112,7 @@
 
   color: var(--react-context-menu-item-color);
   padding: var(--react-context-menu-padding-sm) var(--react-context-menu-padding-md);
+  background-color: transparent;
 
   line-height: 1;
   font-size: var(--react-context-menu-font-size);
