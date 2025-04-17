@@ -37,6 +37,7 @@ const HIDE_ON_EVENTS: (keyof GlobalEventHandlersEventMap)[] = ['click', 'resize'
 const ContextMenu = ({
   triggerId,
   children,
+  className,
   triggerEvent = 'contextmenu',
   animateExit = true,
   ...rest
@@ -94,7 +95,7 @@ const ContextMenu = ({
 
   if (!state.active) return null;
 
-  const classNames = cx('react-context-menu', { 'react-context-menu--exit': state.leaving });
+  const classNames = cx('react-context-menu', className, { 'react-context-menu--exit': state.leaving });
 
   return (
     <div
