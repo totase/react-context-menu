@@ -1,7 +1,7 @@
 import { Children, cloneElement, ReactElement, ReactNode } from 'react';
 
-import { MenuItemExternalProps } from 'components/MenuItem';
-import { Position } from 'types';
+import { MenuItemExternalProps } from './components/MenuItem';
+import { Position } from './types';
 
 export const getCursorPosition = (e: MouseEvent): Position => {
   const position = { x: e.clientX, y: e.clientY };
