@@ -3,7 +3,7 @@ import cx from 'clsx';
 
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export interface MenuItemExternalProps {
+export interface MenuItemExternalProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   hide: () => void;
 }
 
@@ -15,17 +15,11 @@ interface MenuItemState {
 const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: MenuItemProps) => {
   const [state, setState] = useState<MenuItemState>({ clicked: false, eventRef: null });
 
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.stopPropagation();
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
 
-      if (!disabled && onClick) {
-        setState({ clicked: true, eventRef: event });
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onClick],
-  );
+    if (onClick) setState({ clicked: true, eventRef: event });
+  };
 
   const handleAnimationEnd = useCallback(() => {
     const { hide } = rest as MenuItemExternalProps;
@@ -45,11 +39,14 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
 
   return (
     <button
+      {...rest}
       onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
       className={classNames}
       aria-disabled={disabled}
+      disabled={disabled}
       role="menuitem"
+      type="button"
       tabIndex={-1}
     >
       {children}
