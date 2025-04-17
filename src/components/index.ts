@@ -1,4 +1,4 @@
-export { default as ContextMenu } from './ContextMenu';
-export { default as MenuItem } from './MenuItem';
-export { default as Separator } from './Separator';
-export { default as SubMenu } from './SubMenu';
+export { default as ContextMenu, type ContextMenuProps } from './ContextMenu';
+export { default as MenuItem, type MenuItemProps } from './MenuItem';
+export { default as Separator, type SeparatorProps } from './Separator';
+export { default as SubMenu, type SubMenuProps } from './SubMenu';
