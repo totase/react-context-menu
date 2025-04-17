@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 
 import { ContextMenu } from '../components';
 import { StoryWrapper } from './components';
@@ -19,12 +18,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const clickFunction = () => {
+  console.log('Item clicked');
+};
+
 export const Default: Story = {
   args: {
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 3</ContextMenu.Item>,
     ],
   },
   render: (args) => (
@@ -38,9 +41,9 @@ export const WithoutExitAnimation: Story = {
   args: {
     animateExit: false,
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 3</ContextMenu.Item>,
     ],
   },
   render: (args) => (
@@ -54,9 +57,9 @@ export const ClickTrigger: Story = {
   args: {
     triggerEvent: 'click',
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 3</ContextMenu.Item>,
     ],
   },
   render: (args) => (
@@ -69,11 +72,11 @@ export const ClickTrigger: Story = {
 export const DisabledItem: Story = {
   args: {
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()} disabled>
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()} disabled>
         Item 2
       </ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 3</ContextMenu.Item>,
     ],
   },
   render: (args) => (
@@ -86,10 +89,10 @@ export const DisabledItem: Story = {
 export const Separator: Story = {
   args: {
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
       <ContextMenu.Separator />,
-      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 3</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 3</ContextMenu.Item>,
     ],
   },
   render: (args) => (
@@ -102,12 +105,12 @@ export const Separator: Story = {
 export const SubMenu: Story = {
   args: {
     children: [
-      <ContextMenu.Item onClick={fn()}>Item 1</ContextMenu.Item>,
-      <ContextMenu.Item onClick={fn()}>Item 2</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 2</ContextMenu.Item>,
       <ContextMenu.Separator />,
       <ContextMenu.SubMenu label="Sub Menu">
-        <ContextMenu.Item onClick={fn()}>Sub item 2</ContextMenu.Item>
-        <ContextMenu.Item onClick={fn()}>Sub item 3</ContextMenu.Item>
+        <ContextMenu.Item onClick={() => clickFunction()}>Sub item 2</ContextMenu.Item>
+        <ContextMenu.Item onClick={() => clickFunction()}>Sub item 3</ContextMenu.Item>
       </ContextMenu.SubMenu>,
     ],
   },
