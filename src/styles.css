@@ -105,12 +105,16 @@
 }
 
 .react-context-menu__item {
+  display: flex;
+  width: 100%;
+
   color: var(--react-context-menu-item-color);
   padding: var(--react-context-menu-padding-sm) var(--react-context-menu-padding-md);
 
   line-height: 1;
   font-size: var(--react-context-menu-font-size);
   border-radius: var(--react-context-menu-border-radius-inner);
+  border: none;
 
   user-select: none;
   -webkit-user-select: none;

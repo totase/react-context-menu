@@ -1,20 +1,7 @@
-import { ReactNode, useState, useCallback } from 'react';
+import { useState, useCallback, ButtonHTMLAttributes } from 'react';
 import cx from 'clsx';
 
-export interface MenuItemProps {
-  /**
-   * Function to call when the item is clicked. Includes the click event.
-   */
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  /**
-   * Whether the item is disabled.
-   *
-   * Default: `false`
-   */
-  disabled?: boolean;
-  className?: string;
-  children: ReactNode;
-}
+export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export interface MenuItemExternalProps {
   hide: () => void;
@@ -22,14 +9,14 @@ export interface MenuItemExternalProps {
 
 interface MenuItemState {
   clicked: boolean;
-  eventRef: React.MouseEvent<HTMLElement> | null;
+  eventRef: React.MouseEvent<HTMLButtonElement> | null;
 }
 
 const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: MenuItemProps) => {
   const [state, setState] = useState<MenuItemState>({ clicked: false, eventRef: null });
 
   const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
 
       if (!disabled && onClick) {
@@ -57,7 +44,7 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
   });
 
   return (
-    <div
+    <button
       onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
       className={classNames}
@@ -66,7 +53,7 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
       tabIndex={-1}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
