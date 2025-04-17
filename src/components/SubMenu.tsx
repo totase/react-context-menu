@@ -59,7 +59,9 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
     }, CLOSE_DELAY);
   };
 
-  const classNames = cx('react-context-menu__item', className, { 'react-context-menu__item--disabled': disabled });
+  const classNames = cx('react-context-menu__item', className, {
+    'react-context-menu__item--disabled': disabled,
+  });
 
   return (
     <div

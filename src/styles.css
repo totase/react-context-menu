@@ -105,8 +105,10 @@
 }
 
 .react-context-menu__item {
-  display: flex;
-  width: 100%;
+  &:not(:has(.react-context-menu__submenu)) {
+    display: flex;
+    width: 100%;
+  }
 
   color: var(--react-context-menu-item-color);
   padding: var(--react-context-menu-padding-sm) var(--react-context-menu-padding-md);
@@ -152,9 +154,9 @@
 .react-context-menu__arrow {
   transform: rotate(-45deg);
 
-  width: 5px;
-  height: 5px;
-  padding: 3px;
+  width: 4px;
+  height: 4px;
+  padding: 1px;
 
   border-style: solid;
   border-width: 0 2px 2px 0;
