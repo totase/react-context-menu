@@ -83,7 +83,6 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
         style={{ visibility: active ? 'visible' : 'hidden' }}
         className="react-context-menu__submenu"
       >
-        {/* rest is sent from the ContextMenu element */}
         {cloneChildren(children)}
       </div>
     </div>

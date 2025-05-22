@@ -18,13 +18,13 @@ export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Whether to animate the exit of the context menu.
    *
-   * Default: `true`
+   * @default true
    */
   animateExit?: boolean;
   /**
    * The event that will trigger the context menu.
    *
-   * Default: `contextmenu`
+   * @default 'contextmenu'
    */
   triggerEvent?: 'contextmenu' | 'click';
 }
