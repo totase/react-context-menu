@@ -37,11 +37,11 @@ const SubMenu = ({
     };
   }, []);
 
-  const clearTimer = () => {
+  function clearTimer() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  };
+  }
 
-  const calculatePosition = () => {
+  function calculatePosition() {
     if (subMenuRef.current && itemRef.current) {
       clearTimer();
       setActive(true);
@@ -59,15 +59,15 @@ const SubMenu = ({
         subMenuRef.current.classList.add(BOTTOM_CLASS);
       }
     }
-  };
+  }
 
-  const onLeave = () => {
+  function onLeave() {
     clearTimer();
 
     timeoutRef.current = setTimeout(() => {
       setActive(false);
     }, CLOSE_DELAY);
-  };
+  }
 
   const classNames = cx('react-context-menu__item', className, {
     'react-context-menu__item--disabled': disabled,

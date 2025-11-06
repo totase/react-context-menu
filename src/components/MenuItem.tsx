@@ -1,4 +1,4 @@
-import { useState, useCallback, ButtonHTMLAttributes, useContext } from 'react';
+import { useState, ButtonHTMLAttributes, useContext } from 'react';
 import cx from 'clsx';
 
 import { ContextMenuContext } from '../context';
@@ -14,21 +14,20 @@ const MenuItem = ({ children, onClick, className, disabled = false, ...rest }: M
   const context = useContext(ContextMenuContext);
   const [state, setState] = useState<MenuItemState>({ clicked: false, eventRef: null });
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
 
     if (onClick) setState({ clicked: true, eventRef: event });
-  };
+  }
 
-  const handleAnimationEnd = useCallback(() => {
+  function handleAnimationEnd() {
     setState((prev) => ({ ...prev, clicked: false }));
 
     if (state.clicked && state.eventRef) {
       context?.hide();
       onClick!(state.eventRef);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.clicked, state.eventRef]);
+  }
 
   const classNames = cx('react-context-menu__item', className, {
     'react-context-menu__item--disabled': disabled,

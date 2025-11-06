@@ -47,7 +47,7 @@ const ContextMenu = ({
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
-  const show = (event: MouseEvent) => {
+  function show(event: MouseEvent) {
     let position = getCursorPosition(event);
     position = validateMenuPosition(position, contextMenuRef.current);
 
@@ -57,18 +57,18 @@ const ContextMenu = ({
     event.preventDefault();
 
     setState((prev) => ({ ...prev, active: true, position }));
-  };
+  }
 
-  const hide = () => {
+  function hide() {
     if (animateExit) setState((prev) => ({ ...prev, leaving: true }));
     else setState((prev) => ({ ...prev, active: false }));
-  };
+  }
 
-  const handleAnimationEnd = () => {
+  function handleAnimationEnd() {
     const { leaving, active } = state;
 
     if (leaving && active) setState(() => ({ position: { x: 0, y: 0 }, active: false, leaving: false }));
-  };
+  }
 
   useEffect(() => {
     const { position } = state;

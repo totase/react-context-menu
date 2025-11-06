@@ -120,3 +120,21 @@ export const SubMenu: Story = {
     </StoryWrapper>
   ),
 };
+
+export const SubMenuIndicator: Story = {
+  args: {
+    children: [
+      <ContextMenu.Item onClick={() => clickFunction()}>Item 1</ContextMenu.Item>,
+      <ContextMenu.Separator />,
+      <ContextMenu.SubMenu label="Sub Menu" iconElement={<span>▶</span>}>
+        <ContextMenu.Item onClick={() => clickFunction()}>Sub item 2</ContextMenu.Item>
+        <ContextMenu.Item onClick={() => clickFunction()}>Sub item 3</ContextMenu.Item>
+      </ContextMenu.SubMenu>,
+    ],
+  },
+  render: (args) => (
+    <StoryWrapper triggerId={TRIGGER_ID}>
+      <ContextMenu {...args} />
+    </StoryWrapper>
+  ),
+};
