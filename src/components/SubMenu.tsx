@@ -10,9 +10,20 @@ export interface SubMenuProps extends HTMLAttributes<HTMLDivElement> {
    */
   label: string;
   disabled?: boolean;
+  /**
+   * Custom icon to indicate a submenu.
+   */
+  iconElement?: React.ReactNode;
 }
 
-const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubMenuProps) => {
+const SubMenu = ({
+  label,
+  children,
+  className,
+  iconElement = <span className="react-context-menu__arrow" />,
+  disabled = false,
+  ...rest
+}: SubMenuProps) => {
   const [active, setActive] = useState(false);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -76,7 +87,8 @@ const SubMenu = ({ label, children, className, disabled = false, ...rest }: SubM
     >
       <div className="react-context-menu__label">
         {label}
-        <span className="react-context-menu__arrow" />
+
+        {iconElement}
       </div>
       <div
         ref={subMenuRef}
